@@ -12,9 +12,13 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'com.jfrog.bintray' version '1.7.3'
+}
 
 apply plugin: 'net.researchgate.release'
 apply plugin: 'com.moowork.node'
+
 node {
 	version = '6.11.3'
 	npmVersion = '3.10.10'
@@ -36,11 +40,12 @@ configure(subprojects.findAll { it.name.startsWith('org.xtext') }) {
 	apply plugin: 'org.xtext.xtend'
 	apply from: "${rootDir}/gradle/source-layout.gradle"
 	apply from: "${rootDir}/gradle/maven-deployment.gradle"
+	apply from: "${rootDir}/gradle/publishing.gradle"
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	
 	group = 'org.xtext.example.mydsl'
-	version = '1.0.0-SNAPSHOT'
+	version = '1.0.0'
 	
 	sourceCompatibility = '1.8'
 	targetCompatibility = '1.8'

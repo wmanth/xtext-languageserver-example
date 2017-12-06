@@ -1,0 +1,29 @@
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+apply plugin: 'com.jfrog.bintray'
+bintray {
+	user = System.getenv('BINTRAY_USER')
+	key = System.getenv('BINTRAY_KEY')
+	configurations = ['archives']
+	pkg {
+		repo = 'examples'
+		name = 'xtext-languageserver-example'
+        userOrg = 'itemis'
+		licenses = ['EPL-1.0']
+		labels = ['mydsl', 'xtext']
+		websiteUrl = "https://github.com/itemis/xtext-languageserver-example/"
+		issueTrackerUrl = "$websiteUrl/issues"
+		vcsUrl = "${websiteUrl}.git"
+		version {
+			name = project.version
+			vcsTag = "v$project.version"
+		}
+	}
+}
