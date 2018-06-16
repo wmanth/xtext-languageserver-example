@@ -1,0 +1,11 @@
+dependencies {
+	compile project(':org.xtext.example.mydsl')
+	compile project(':org.xtext.example.mydsl.ide')
+	compile "org.eclipse.xtext:org.eclipse.xtext.ide:${xtextVersion}"
+	compile "org.eclipse.xtext:org.eclipse.xtext.xbase.ide:${xtextVersion}"
+	compile "org.slf4j:slf4j-api:1.7.22"
+	compile "org.slf4j:slf4j-simple:1.6.1"
+	compile "org.eclipse.jetty:jetty-annotations:9.4.11.v20180605"
+	compile "org.eclipse.jetty:jetty-annotations:9.4.11.v20180605"
+	compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.11.v20180605"
+}
