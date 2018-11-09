@@ -9,6 +9,7 @@ buildscript {
 		classpath 'org.xtext:xtext-gradle-plugin:2.0.1'
 		classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
 		classpath 'net.researchgate:gradle-release:2.6.0'
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
 	}
 }
 
@@ -24,15 +25,21 @@ node {
 // Configuration for Xtext projects
 configure(subprojects.findAll { it.name.startsWith('org.xtext') }) {
 
-	ext.xtextVersion = '2.15.0'
+	ext.xtextVersion = '2.16.0-SNAPSHOT'
 	repositories {
 		maven {
-			url 'https://oss.sonatype.org/content/repositories/snapshots'
+			url 'https://projects.itemis.de/nexus/content/groups/xtext-bom'
 		}
 		jcenter()
 	}
 	
 	apply plugin: 'java'
+	apply plugin: "io.spring.dependency-management"
+	dependencyManagement {
+		imports {
+			mavenBom "org.eclipse.xtext:xtext-dev.bom:2.16.0-SNAPSHOT"
+		}
+	}
 	apply plugin: 'org.xtext.xtend'
 	apply from: "${rootDir}/gradle/source-layout.gradle"
 	apply from: "${rootDir}/gradle/maven-deployment.gradle"
