@@ -1,0 +1,46 @@
+ext.xtextVersion = '2.20.0'
+ext.francaVersion = '0.13.1'
+
+repositories {
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots'
+	}
+	jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply from: "${rootDir}/gradle/source-layout.gradle"
+apply from: "${rootDir}/gradle/maven-deployment.gradle"
+	
+group = 'org.franca'
+version = '1.0.0-SNAPSHOT'
+	
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+	
+configurations.all {
+	exclude group: 'asm'
+}
+
+dependencies {
+	compile "org.franca:org.franca.core.dsl:${francaVersion}"
+	compile "org.franca:org.franca.core.dsl.ide:${francaVersion}"
+	compile "org.franca:org.franca.deploymodel.dsl:${francaVersion}"
+	compile "org.franca:org.franca.deploymodel.dsl.ide:${francaVersion}"
+	compile "org.eclipse.xtext:org.eclipse.xtext.ide:${xtextVersion}"
+	compile "org.eclipse.xtext:org.eclipse.xtext.xbase.ide:${xtextVersion}"
+}
+
+// Add another start script for the standalone / self-contained case
+task standaloneStartScript(type: CreateStartScripts) {
+	mainClassName = 'org.eclipse.xtext.ide.server.ServerLauncher'
+	applicationName = 'franca-ls-standalone'
+	outputDir = new File(project.buildDir, 'scripts')
+	classpath = jar.outputs.files + project.configurations.runtime
+}
+
+applicationDistribution.into("bin") {
+	from(standaloneStartScript)
+	fileMode = 0755
+}

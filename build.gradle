@@ -41,7 +41,7 @@ configure(subprojects.findAll { it.name.startsWith('org.xtext') }) {
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	
-	group = 'org.xtext.example.mydsl'
+	group = 'org.franca'
 	version = '1.0.0-SNAPSHOT'
 	
 	sourceCompatibility = '1.8'

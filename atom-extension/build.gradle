@@ -1,8 +1,8 @@
-evaluationDependsOn(':org.xtext.example.mydsl.ide')
+evaluationDependsOn(':org.franca.languageserver')
 
 task copyApplication(type: Sync) {
-    from tasks.getByPath(':org.xtext.example.mydsl.ide:installDist').outputs
-    into 'lib/mydsl'
+    from tasks.getByPath(':org.franca.languageserver:installDist').outputs
+    into 'lib/franca'
 }
 
 apply plugin: 'base'
